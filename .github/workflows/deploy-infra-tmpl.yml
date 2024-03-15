@@ -1,0 +1,15 @@
+name: Deploy Infra
+
+on:
+  workflow_call:
+
+jobs:
+  tf-plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: test write
+        run: |
+          echo "I am being called"
