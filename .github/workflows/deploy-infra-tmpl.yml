@@ -3,9 +3,6 @@ name: Deploy Infra
 on:
   workflow_call:
 
-env:
-  TF_LOG: INFO
-
 permissions:
   id-token: write
   contents: read
