@@ -25,12 +25,11 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@v1.9.0
+        uses: getsentry/action-github-app-token@v2.0.0
         id: app-token
         with:
           app-id: ${{ secrets.TF_MODULE_AUTH_APP_ID }}
           private-key: ${{ secrets.TF_MODULE_AUTH_APP_SECRET }}
-          owner: ${{ github.repository_owner }}
 
       - name: Git Config
         run: git config --global url."https://x-access-token:${{ steps.app-token.outputs.token  }}@github.com".insteadOf ssh://git@github.com
