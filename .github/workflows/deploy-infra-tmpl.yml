@@ -30,6 +30,7 @@ jobs:
         with:
           app-id: ${{ secrets.TF_MODULE_AUTH_APP_ID }}
           private-key: ${{ secrets.TF_MODULE_AUTH_APP_SECRET }}
+          owner: ${{ github.repository_owner }}
 
       - name: Git Config
         run: git config --global url."https://x-access-token:${{ steps.app-token.outputs.token  }}@github.com".insteadOf ssh://git@github.com
