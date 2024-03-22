@@ -51,7 +51,7 @@ jobs:
 
       - name: Terraform validate
         id: validate
-        run: terraform validate
+        run: terraform validate -no-color
 
       - name: Terraform plan
         id: plan
@@ -59,7 +59,7 @@ jobs:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        run: terraform plan -var-file="lab.tfvars" -input=false -lock=false
+        run: terraform plan -no-color -var-file="lab.tfvars" -input=false -lock=false
 
       - name: Add Plan Comment
         id: comment
