@@ -51,10 +51,22 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         run: terraform init -backend-config=backend.tfvars
 
+      - name: Check destroy arg
+        id: destroy_arg
+        env:
+          DESTROY: ${{ inputs.destroy }}
+        run: |
+          if $DESTROY
+          then
+            echo "val=-destroy" >> $GITHUB_OUTPUT
+          else
+            echo "val= " >> $GITHUB_OUTPUT
+          fi
+
       - name: Terraform apply
         id: apply
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        run: terraform apply -var-file=${{ inputs.environment }}.tfvars -auto-approve -input=false -lock=false
+        run: terraform apply -var-file=${{ inputs.environment }}.tfvars -auto-approve -input=false -lock=false $DESTROY
