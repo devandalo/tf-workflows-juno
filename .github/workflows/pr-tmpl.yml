@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3.0.0
+        uses: hashicorp/setup-terraform@v3.1.0
 
       - name: "Az CLI login"
         uses: Azure/login@v2.0.0
