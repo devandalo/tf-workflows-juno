@@ -26,6 +26,8 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3.1.0
+        with:
+          terraform_wrapper: false
 
       - name: "Az CLI login"
         uses: Azure/login@v2.0.0
