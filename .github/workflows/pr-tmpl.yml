@@ -27,7 +27,8 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3.1.0
         with:
-          terraform_wrapper: true
+          terraform_version: 1.8.2
+          terraform_wrapper: false
 
       - name: "Az CLI login"
         uses: Azure/login@v2.0.0
@@ -53,7 +54,9 @@ jobs:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        run: terraform init -backend-config=backend.tfvars
+        run: |
+          set -eux
+          terraform init -backend-config=backend.tfvars
 
       - name: Terraform format
         id: fmt
@@ -82,4 +85,6 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           DESTROY: ${{ steps.destroy_arg.outputs.val }}
-        run: terraform plan $DESTROY -var-file="lab.tfvars" -input=false -lock=false
+        run: |
+          set -eux
+          terraform plan $DESTROY -var-file="lab.tfvars" -input=false -lock=false
